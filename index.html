@@ -187,7 +187,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="asset-row" data-target="40.00">
+                <tr class="asset-row" data-target="40.00" data-multiplier="1">
                     <td><strong>QQQ</strong><br><small style="color:var(--text-muted)">Nasdaq 100</small></td>
                     <td><input type="number" class="qty-input" value="0" min="0" step="any"></td>
                     <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
@@ -198,7 +198,7 @@
                     <td class="weight-val">0.00%</td>
                     <td><strong>40.00%</strong></td>
                 </tr>
-                <tr class="asset-row" data-target="40.00">
+                <tr class="asset-row" data-target="40.00" data-multiplier="1">
                     <td><strong>BRK.B</strong><br><small style="color:var(--text-muted)">Berkshire Hathaway</small></td>
                     <td><input type="number" class="qty-input" value="0" min="0" step="any"></td>
                     <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
@@ -209,7 +209,7 @@
                     <td class="weight-val">0.00%</td>
                     <td><strong>40.00%</strong></td>
                 </tr>
-                <tr class="asset-row" data-target="19.00">
+                <tr class="asset-row" data-target="19.00" data-multiplier="1">
                     <td><strong>ORO</strong><br><small style="color:var(--text-muted)">Valor refugio</small></td>
                     <td><input type="number" class="qty-input" value="0" min="0" step="any"></td>
                     <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
@@ -241,11 +241,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="asset-row" data-target="1.00">
+                <!-- Se añade el data-multiplier="100" para que cada contrato valga por 100 acciones -->
+                <tr class="asset-row" data-target="1.00" data-multiplier="100">
                     <td><strong>Opciones</strong><br><small style="color:var(--text-muted)">Liquidez / Spreads</small></td>
                     <td><input type="number" class="qty-input" value="1" min="0" step="any"></td>
-                    <td><input type="number" class="avg-price-input" value="407215" min="0" step="any"></td>
-                    <td><input type="number" class="cur-price-input" value="407215" min="0" step="any"></td>
+                    <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="cur-price-input" value="0" min="0" step="any"></td>
                     <td class="invested-val">0</td>
                     <td class="current-val">0</td>
                     <td class="yield-val">0.00%</td>
@@ -258,7 +259,6 @@
 </div>
 
 <script>
-    // Se eliminó la configuración de "currency" para que solo muestre números con formato
     const formatNumber = (value) => {
         return new Intl.NumberFormat('es-AR', { 
             minimumFractionDigits: 0,
@@ -296,22 +296,28 @@
         let totalInvestedPortfolio = 0;
         let totalCurrentPortfolio = 0;
 
+        // Primer ciclo para sumar los totales generales del portafolio (considerando el multiplicador)
         rows.forEach(row => {
             const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
             const avgPrice = parseFloat(row.querySelector('.avg-price-input').value) || 0;
             const curPrice = parseFloat(row.querySelector('.cur-price-input').value) || 0;
-            totalInvestedPortfolio += (qty * avgPrice);
-            totalCurrentPortfolio += (qty * curPrice);
+            const multiplier = parseFloat(row.getAttribute('data-multiplier')) || 1;
+
+            totalInvestedPortfolio += (qty * avgPrice * multiplier);
+            totalCurrentPortfolio += (qty * curPrice * multiplier);
         });
 
+        // Segundo ciclo para calcular valores individuales y pesos
         rows.forEach(row => {
             const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
             const avgPrice = parseFloat(row.querySelector('.avg-price-input').value) || 0;
             const curPrice = parseFloat(row.querySelector('.cur-price-input').value) || 0;
             const targetWeight = parseFloat(row.getAttribute('data-target')) || 0;
+            const multiplier = parseFloat(row.getAttribute('data-multiplier')) || 1;
 
-            const invested = qty * avgPrice;
-            const current = qty * curPrice;
+            // Inversión y valor actual multiplicado por 100 si es un contrato de opciones
+            const invested = qty * avgPrice * multiplier;
+            const current = qty * curPrice * multiplier;
             
             let yieldPerc = 0;
             if (invested > 0) yieldPerc = ((current - invested) / invested) * 100;
