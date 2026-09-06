@@ -153,21 +153,21 @@
     <div class="header">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3v18h18v-2H5V3H3zm16 4l-5 5-4-4-5 5v-2.8l5-5 4 4 5-5V7z"/></svg>
         <h1>Mi Portafolio</h1>
-        <p style="color: var(--text-muted);">Capital Inicial: $39.000.000</p>
+        <p style="color: var(--text-muted);">Capital Inicial: 39.000.000</p>
     </div>
 
     <div class="summary-cards">
         <div class="card">
             <h3>Capital Invertido</h3>
-            <div class="value" id="totalInvested">$0</div>
+            <div class="value" id="totalInvested">0</div>
         </div>
         <div class="card">
             <h3>Valor Actual</h3>
-            <div class="value" id="totalCurrent">$0</div>
+            <div class="value" id="totalCurrent">0</div>
         </div>
         <div class="card">
             <h3>Rendimiento Total</h3>
-            <div class="value neutral" id="totalYield">$0 (0.00%)</div>
+            <div class="value neutral" id="totalYield">0 (0.00%)</div>
         </div>
     </div>
 
@@ -177,59 +177,48 @@
                 <tr>
                     <th>Activo</th>
                     <th>Acciones</th>
-                    <th>Precio Prom. ($)</th>
-                    <th>Precio Act. ($)</th>
-                    <th>Invertido ($)</th>
-                    <th>Actual ($)</th>
+                    <th>Precio Prom.</th>
+                    <th>Precio Act.</th>
+                    <th>Invertido</th>
+                    <th>Actual</th>
                     <th>Rendimiento</th>
                     <th>Peso Act.</th>
                     <th>Objetivo</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="asset-row" data-target="30.00">
-                    <td><strong>BRK.B</strong><br><small style="color:var(--text-muted)">Berkshire</small></td>
-                    <td><input type="number" class="qty-input" value="320" min="0" step="any"></td>
-                    <td><input type="number" class="avg-price-input" value="36540" min="0" step="any"></td>
-                    <td><input type="number" class="cur-price-input" value="36540" min="0" step="any"></td>
-                    <td class="invested-val">$0</td>
-                    <td class="current-val">$0</td>
+                <tr class="asset-row" data-target="40.00">
+                    <td><strong>QQQ</strong><br><small style="color:var(--text-muted)">Nasdaq 100</small></td>
+                    <td><input type="number" class="qty-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="cur-price-input" value="0" min="0" step="any"></td>
+                    <td class="invested-val">0</td>
+                    <td class="current-val">0</td>
                     <td class="yield-val">0.00%</td>
                     <td class="weight-val">0.00%</td>
-                    <td><strong>30.00%</strong></td>
+                    <td><strong>40.00%</strong></td>
                 </tr>
-                <tr class="asset-row" data-target="30.00">
-                    <td><strong>XLP</strong><br><small style="color:var(--text-muted)">Defensivo</small></td>
-                    <td><input type="number" class="qty-input" value="1391" min="0" step="any"></td>
-                    <td><input type="number" class="avg-price-input" value="8410" min="0" step="any"></td>
-                    <td><input type="number" class="cur-price-input" value="8410" min="0" step="any"></td>
-                    <td class="invested-val">$0</td>
-                    <td class="current-val">$0</td>
+                <tr class="asset-row" data-target="40.00">
+                    <td><strong>BRK.B</strong><br><small style="color:var(--text-muted)">Berkshire Hathaway</small></td>
+                    <td><input type="number" class="qty-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="cur-price-input" value="0" min="0" step="any"></td>
+                    <td class="invested-val">0</td>
+                    <td class="current-val">0</td>
                     <td class="yield-val">0.00%</td>
                     <td class="weight-val">0.00%</td>
-                    <td><strong>30.00%</strong></td>
+                    <td><strong>40.00%</strong></td>
                 </tr>
-                <tr class="asset-row" data-target="30.00">
-                    <td><strong>EWZ</strong><br><small style="color:var(--text-muted)">Emergentes</small></td>
-                    <td><input type="number" class="qty-input" value="390" min="0" step="any"></td>
-                    <td><input type="number" class="avg-price-input" value="29980" min="0" step="any"></td>
-                    <td><input type="number" class="cur-price-input" value="29980" min="0" step="any"></td>
-                    <td class="invested-val">$0</td>
-                    <td class="current-val">$0</td>
+                <tr class="asset-row" data-target="19.00">
+                    <td><strong>ORO</strong><br><small style="color:var(--text-muted)">Valor refugio</small></td>
+                    <td><input type="number" class="qty-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="cur-price-input" value="0" min="0" step="any"></td>
+                    <td class="invested-val">0</td>
+                    <td class="current-val">0</td>
                     <td class="yield-val">0.00%</td>
                     <td class="weight-val">0.00%</td>
-                    <td><strong>30.00%</strong></td>
-                </tr>
-                <tr class="asset-row" data-target="9.00">
-                    <td><strong>ADBE</strong><br><small style="color:var(--text-muted)">Adobe Inc.</small></td>
-                    <td><input type="number" class="qty-input" value="365" min="0" step="any"></td>
-                    <td><input type="number" class="avg-price-input" value="9615" min="0" step="any"></td>
-                    <td><input type="number" class="cur-price-input" value="9615" min="0" step="any"></td>
-                    <td class="invested-val">$0</td>
-                    <td class="current-val">$0</td>
-                    <td class="yield-val">0.00%</td>
-                    <td class="weight-val">0.00%</td>
-                    <td><strong>9.00%</strong></td>
+                    <td><strong>19.00%</strong></td>
                 </tr>
             </tbody>
         </table>
@@ -242,10 +231,10 @@
                 <tr>
                     <th>Activo</th>
                     <th>Contratos</th>
-                    <th>Costo Prom. ($)</th>
-                    <th>Precio Act. ($)</th>
-                    <th>Invertido ($)</th>
-                    <th>Actual ($)</th>
+                    <th>Costo Prom.</th>
+                    <th>Precio Act.</th>
+                    <th>Invertido</th>
+                    <th>Actual</th>
                     <th>Rendimiento</th>
                     <th>Peso Act.</th>
                     <th>Objetivo</th>
@@ -257,8 +246,8 @@
                     <td><input type="number" class="qty-input" value="1" min="0" step="any"></td>
                     <td><input type="number" class="avg-price-input" value="407215" min="0" step="any"></td>
                     <td><input type="number" class="cur-price-input" value="407215" min="0" step="any"></td>
-                    <td class="invested-val">$0</td>
-                    <td class="current-val">$0</td>
+                    <td class="invested-val">0</td>
+                    <td class="current-val">0</td>
                     <td class="yield-val">0.00%</td>
                     <td class="weight-val">0.00%</td>
                     <td><strong>1.00%</strong></td>
@@ -269,10 +258,9 @@
 </div>
 
 <script>
-    const formatCurrency = (value) => {
+    // Se eliminó la configuración de "currency" para que solo muestre números con formato
+    const formatNumber = (value) => {
         return new Intl.NumberFormat('es-AR', { 
-            style: 'currency', 
-            currency: 'ARS',
             minimumFractionDigits: 0,
             maximumFractionDigits: 0 
         }).format(value);
@@ -287,11 +275,11 @@
                 curPrice: row.querySelector('.cur-price-input').value
             });
         });
-        localStorage.setItem('portafolioSaaS_v4', JSON.stringify(data));
+        localStorage.setItem('portafolioSaaS_v5', JSON.stringify(data));
     };
 
     const loadFromLocalStorage = () => {
-        const savedData = JSON.parse(localStorage.getItem('portafolioSaaS_v4'));
+        const savedData = JSON.parse(localStorage.getItem('portafolioSaaS_v5'));
         if (savedData && savedData.length > 0) {
             document.querySelectorAll('.asset-row').forEach((row, index) => {
                 if (savedData[index] && (savedData[index].qty || savedData[index].avgPrice)) {
@@ -331,8 +319,8 @@
             let weightPerc = 0;
             if (totalCurrentPortfolio > 0) weightPerc = (current / totalCurrentPortfolio) * 100;
 
-            row.querySelector('.invested-val').innerText = formatCurrency(invested);
-            row.querySelector('.current-val').innerText = formatCurrency(current);
+            row.querySelector('.invested-val').innerText = formatNumber(invested);
+            row.querySelector('.current-val').innerText = formatNumber(current);
             
             const yieldCell = row.querySelector('.yield-val');
             yieldCell.innerText = yieldPerc.toFixed(2) + '%';
@@ -348,15 +336,15 @@
             }
         });
 
-        document.getElementById('totalInvested').innerText = formatCurrency(totalInvestedPortfolio);
-        document.getElementById('totalCurrent').innerText = formatCurrency(totalCurrentPortfolio);
+        document.getElementById('totalInvested').innerText = formatNumber(totalInvestedPortfolio);
+        document.getElementById('totalCurrent').innerText = formatNumber(totalCurrentPortfolio);
 
         const totalYieldDiff = totalCurrentPortfolio - totalInvestedPortfolio;
         let totalYieldPerc = 0;
         if (totalInvestedPortfolio > 0) totalYieldPerc = (totalYieldDiff / totalInvestedPortfolio) * 100;
 
         const yieldEl = document.getElementById('totalYield');
-        yieldEl.innerText = `${totalYieldDiff > 0 ? '+' : ''}${formatCurrency(totalYieldDiff)} (${totalYieldPerc.toFixed(2)}%)`;
+        yieldEl.innerText = `${totalYieldDiff > 0 ? '+' : ''}${formatNumber(totalYieldDiff)} (${totalYieldPerc.toFixed(2)}%)`;
         yieldEl.className = 'value ' + (totalYieldDiff > 0 ? 'positive' : (totalYieldDiff < 0 ? 'negative' : 'neutral'));
     };
 
