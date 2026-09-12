@@ -53,6 +53,13 @@
             margin: 0;
         }
 
+        .last-modified {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
         .summary-cards {
             display: flex;
             gap: 20px;
@@ -145,6 +152,28 @@
             padding-bottom: 10px;
             font-size: 20px;
         }
+
+        .patrimonio-card {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+        
+        .patrimonio-card h3 {
+            color: #e0e7ff;
+        }
+        
+        .patrimonio-card .value {
+            color: white;
+        }
+        
+        .formatted-input {
+            font-size: 20px;
+            text-align: center;
+            color: var(--accent);
+            padding: 10px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -152,8 +181,8 @@
 <div class="container">
     <div class="header">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 3v18h18v-2H5V3H3zm16 4l-5 5-4-4-5 5v-2.8l5-5 4 4 5-5V7z"/></svg>
-        <h1>Mi Portafolio</h1>
-        <p style="color: var(--text-muted);">Capital Inicial: 39.000.000</p>
+        <h1>Patrimonio familiar</h1>
+        <p class="last-modified" id="lastModified">Última modificación: -</p>
     </div>
 
     <div class="summary-cards">
@@ -167,7 +196,8 @@
         </div>
         <div class="card">
             <h3>Rendimiento Total</h3>
-            <div class="value neutral" id="totalYield">0 (0.00%)</div>
+            <!-- Aquí mostrará solo el porcentaje -->
+            <div class="value neutral" id="totalYield">0.00%</div>
         </div>
     </div>
 
@@ -189,9 +219,9 @@
             <tbody>
                 <tr class="asset-row" data-target="40.00" data-multiplier="1">
                     <td><strong>QQQ</strong><br><small style="color:var(--text-muted)">Nasdaq 100</small></td>
-                    <td><input type="number" class="qty-input" value="0" min="0" step="any"></td>
-                    <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
-                    <td><input type="number" class="cur-price-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="qty-input table-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="avg-price-input table-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="cur-price-input table-input" value="0" min="0" step="any"></td>
                     <td class="invested-val">0</td>
                     <td class="current-val">0</td>
                     <td class="yield-val">0.00%</td>
@@ -200,9 +230,9 @@
                 </tr>
                 <tr class="asset-row" data-target="40.00" data-multiplier="1">
                     <td><strong>BRK.B</strong><br><small style="color:var(--text-muted)">Berkshire Hathaway</small></td>
-                    <td><input type="number" class="qty-input" value="0" min="0" step="any"></td>
-                    <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
-                    <td><input type="number" class="cur-price-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="qty-input table-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="avg-price-input table-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="cur-price-input table-input" value="0" min="0" step="any"></td>
                     <td class="invested-val">0</td>
                     <td class="current-val">0</td>
                     <td class="yield-val">0.00%</td>
@@ -211,9 +241,9 @@
                 </tr>
                 <tr class="asset-row" data-target="19.00" data-multiplier="1">
                     <td><strong>ORO</strong><br><small style="color:var(--text-muted)">Valor refugio</small></td>
-                    <td><input type="number" class="qty-input" value="0" min="0" step="any"></td>
-                    <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
-                    <td><input type="number" class="cur-price-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="qty-input table-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="avg-price-input table-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="cur-price-input table-input" value="0" min="0" step="any"></td>
                     <td class="invested-val">0</td>
                     <td class="current-val">0</td>
                     <td class="yield-val">0.00%</td>
@@ -241,12 +271,11 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Se añade el data-multiplier="100" para que cada contrato valga por 100 acciones -->
                 <tr class="asset-row" data-target="1.00" data-multiplier="100">
                     <td><strong>Opciones</strong><br><small style="color:var(--text-muted)">Liquidez / Spreads</small></td>
-                    <td><input type="number" class="qty-input" value="1" min="0" step="any"></td>
-                    <td><input type="number" class="avg-price-input" value="0" min="0" step="any"></td>
-                    <td><input type="number" class="cur-price-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="qty-input table-input" value="1" min="0" step="any"></td>
+                    <td><input type="number" class="avg-price-input table-input" value="0" min="0" step="any"></td>
+                    <td><input type="number" class="cur-price-input table-input" value="0" min="0" step="any"></td>
                     <td class="invested-val">0</td>
                     <td class="current-val">0</td>
                     <td class="yield-val">0.00%</td>
@@ -256,6 +285,26 @@
             </tbody>
         </table>
     </div>
+
+    <!-- SECCIÓN: Resumen Patrimonial -->
+    <div class="table-container" style="margin-top: 20px; background-color: #f1f5f9; border-color: #cbd5e1;">
+        <h2 class="section-title" style="margin-top: 0;">Resumen Patrimonial</h2>
+        <div class="summary-cards" style="margin-bottom: 0; margin-top: 20px;">
+            <div class="card">
+                <h3>Inversión en Tipuana</h3>
+                <!-- Type text para permitir puntos separadores -->
+                <input type="text" id="tipuanaInput" class="formatted-input" value="8.064.100">
+            </div>
+            <div class="card">
+                <h3>Otro Ingreso / Activo</h3>
+                <input type="text" id="otroIngresoInput" class="formatted-input" value="0">
+            </div>
+            <div class="card patrimonio-card">
+                <h3>Patrimonio General Total</h3>
+                <div class="value" id="patrimonioTotal">0</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -264,6 +313,18 @@
             minimumFractionDigits: 0,
             maximumFractionDigits: 0 
         }).format(value);
+    };
+
+    // Función para convertir texto con puntos a número real para sumar
+    const parseFormattedValue = (strValue) => {
+        if (!strValue) return 0;
+        return parseFloat(strValue.replace(/\./g, '')) || 0;
+    };
+
+    const updateLastModifiedText = (dateString = null) => {
+        const dateStr = dateString || new Date().toLocaleString('es-AR', { dateStyle: 'short', timeStyle: 'short' });
+        document.getElementById('lastModified').innerText = 'Última modificación: ' + dateStr;
+        return dateStr;
     };
 
     const saveToLocalStorage = () => {
@@ -276,6 +337,14 @@
             });
         });
         localStorage.setItem('portafolioSaaS_v5', JSON.stringify(data));
+        
+        // Guardar valores de patrimonio y otros ingresos
+        localStorage.setItem('tipuana_v2', document.getElementById('tipuanaInput').value);
+        localStorage.setItem('otro_ingreso_v1', document.getElementById('otroIngresoInput').value);
+        
+        // Guardar la fecha de última modificación
+        const dateNow = updateLastModifiedText();
+        localStorage.setItem('last_modified_date', dateNow);
     };
 
     const loadFromLocalStorage = () => {
@@ -289,6 +358,23 @@
                 }
             });
         }
+        
+        const savedTipuana = localStorage.getItem('tipuana_v2');
+        if (savedTipuana !== null) {
+            document.getElementById('tipuanaInput').value = savedTipuana;
+        }
+
+        const savedOtro = localStorage.getItem('otro_ingreso_v1');
+        if (savedOtro !== null) {
+            document.getElementById('otroIngresoInput').value = savedOtro;
+        }
+
+        const savedDate = localStorage.getItem('last_modified_date');
+        if (savedDate !== null) {
+            updateLastModifiedText(savedDate);
+        } else {
+            updateLastModifiedText(); 
+        }
     };
 
     const calculateDashboard = () => {
@@ -296,7 +382,6 @@
         let totalInvestedPortfolio = 0;
         let totalCurrentPortfolio = 0;
 
-        // Primer ciclo para sumar los totales generales del portafolio (considerando el multiplicador)
         rows.forEach(row => {
             const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
             const avgPrice = parseFloat(row.querySelector('.avg-price-input').value) || 0;
@@ -307,7 +392,6 @@
             totalCurrentPortfolio += (qty * curPrice * multiplier);
         });
 
-        // Segundo ciclo para calcular valores individuales y pesos
         rows.forEach(row => {
             const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
             const avgPrice = parseFloat(row.querySelector('.avg-price-input').value) || 0;
@@ -315,7 +399,6 @@
             const targetWeight = parseFloat(row.getAttribute('data-target')) || 0;
             const multiplier = parseFloat(row.getAttribute('data-multiplier')) || 1;
 
-            // Inversión y valor actual multiplicado por 100 si es un contrato de opciones
             const invested = qty * avgPrice * multiplier;
             const current = qty * curPrice * multiplier;
             
@@ -349,17 +432,41 @@
         let totalYieldPerc = 0;
         if (totalInvestedPortfolio > 0) totalYieldPerc = (totalYieldDiff / totalInvestedPortfolio) * 100;
 
+        // Rendimiento Total (Solo porcentaje como solicitaste)
         const yieldEl = document.getElementById('totalYield');
-        yieldEl.innerText = `${totalYieldDiff > 0 ? '+' : ''}${formatNumber(totalYieldDiff)} (${totalYieldPerc.toFixed(2)}%)`;
+        yieldEl.innerText = `${totalYieldDiff > 0 ? '+' : ''}${totalYieldPerc.toFixed(2)}%`;
         yieldEl.className = 'value ' + (totalYieldDiff > 0 ? 'positive' : (totalYieldDiff < 0 ? 'negative' : 'neutral'));
+        
+        // CALCULO DEL PATRIMONIO GENERAL
+        const tipuanaValue = parseFormattedValue(document.getElementById('tipuanaInput').value);
+        const otroIngresoValue = parseFormattedValue(document.getElementById('otroIngresoInput').value);
+        
+        const patrimonioGeneral = totalCurrentPortfolio + tipuanaValue + otroIngresoValue;
+        document.getElementById('patrimonioTotal').innerText = "$ " + formatNumber(patrimonioGeneral);
     };
 
     window.addEventListener('DOMContentLoaded', () => {
         loadFromLocalStorage(); 
         calculateDashboard();   
 
-        document.querySelectorAll('input').forEach(input => {
+        // Escuchar cambios en los inputs de la tabla
+        document.querySelectorAll('.table-input').forEach(input => {
             input.addEventListener('input', () => {
+                calculateDashboard();
+                saveToLocalStorage();
+            });
+        });
+
+        // Lógica para que los nuevos campos pongan los puntos (miles) mientras se escribe
+        document.querySelectorAll('.formatted-input').forEach(input => {
+            input.addEventListener('input', function(e) {
+                // Eliminar cualquier cosa que no sea número
+                let value = this.value.replace(/\D/g, '');
+                if (value !== '') {
+                    // Volver a dar formato con puntos
+                    this.value = formatNumber(value);
+                }
+                
                 calculateDashboard();
                 saveToLocalStorage();
             });
