@@ -277,40 +277,49 @@
                     <tr>
                         <th>Activo</th>
                         <th>Acciones</th>
-                        <th>Precio Prom.</th>
-                        <th>Precio Act.</th>
+                        <th>Promedio</th>
+                        <th>Actual</th>
                         <th>Rendimiento</th>
-                        <th>Peso Act.</th>
+                        <th>Actual</th>
                         <th>Objetivo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="asset-row" data-symbol="BRK.B" data-target="40.00" data-multiplier="1">
+                    <tr class="asset-row" data-symbol="BRK.B" data-target="33.00" data-multiplier="1">
                         <td><strong>BRK.B</strong><br><small style="color:var(--text-muted)">Berkshire Hathaway</small></td>
-                        <td><input type="number" class="qty-input table-input" value="462" min="0" step="any"></td>
-                        <td><input type="number" class="avg-price-input table-input" value="37363" min="0" step="any"></td>
-                        <td><input type="number" class="cur-price-input table-input" value="40700" min="0" step="any"></td>
+                        <td><input type="number" class="qty-input table-input" value="458" min="0" step="any"></td>
+                        <td><input type="number" class="avg-price-input table-input" value="37365" min="0" step="any"></td>
+                        <td><input type="number" class="cur-price-input table-input" value="40860" min="0" step="any"></td>
                         <td class="yield-val">0.00%</td>
                         <td class="weight-val">0.00%</td>
-                        <td><strong>40.00%</strong></td>
+                        <td><strong>33.00%</strong></td>
                     </tr>
-                    <tr class="asset-row" data-symbol="QQQ" data-target="40.00" data-multiplier="1">
+                    <tr class="asset-row" data-symbol="QQQ" data-target="33.00" data-multiplier="1">
                         <td><strong>QQQ</strong><br><small style="color:var(--text-muted)">Nasdaq 100</small></td>
                         <td><input type="number" class="qty-input table-input" value="207" min="0" step="any"></td>
                         <td><input type="number" class="avg-price-input table-input" value="56705" min="0" step="any"></td>
-                        <td><input type="number" class="cur-price-input table-input" value="57775" min="0" step="any"></td>
+                        <td><input type="number" class="cur-price-input table-input" value="59750" min="0" step="any"></td>
                         <td class="yield-val">0.00%</td>
                         <td class="weight-val">0.00%</td>
-                        <td><strong>40.00%</strong></td>
+                        <td><strong>33.00%</strong></td>
                     </tr>
-                    <tr class="asset-row" data-symbol="VIG" data-target="20.00" data-multiplier="1">
+                    <tr class="asset-row" data-symbol="VIG" data-target="33.00" data-multiplier="1">
                         <td><strong>VIG</strong><br><small style="color:var(--text-muted)">Vanguard Dividend</small></td>
-                        <td><input type="number" class="qty-input table-input" value="608" min="0" step="any"></td>
-                        <td><input type="number" class="avg-price-input table-input" value="10280" min="0" step="any"></td>
-                        <td><input type="number" class="cur-price-input table-input" value="10310" min="0" step="any"></td>
+                        <td><input type="number" class="qty-input table-input" value="654" min="0" step="any"></td>
+                        <td><input type="number" class="avg-price-input table-input" value="10272" min="0" step="any"></td>
+                        <td><input type="number" class="cur-price-input table-input" value="10420" min="0" step="any"></td>
                         <td class="yield-val">0.00%</td>
                         <td class="weight-val">0.00%</td>
-                        <td><strong>20.00%</strong></td>
+                        <td><strong>33.00%</strong></td>
+                    </tr>
+                    <tr class="asset-row" data-symbol="CASH" data-target="1.00" data-multiplier="1">
+                        <td><strong>CASH</strong><br><small style="color:var(--text-muted)">Liquidez</small></td>
+                        <td><input type="number" class="qty-input table-input" value="0" min="0" step="any"></td>
+                        <td><input type="number" class="avg-price-input table-input" value="1" min="0" step="any"></td>
+                        <td><input type="number" class="cur-price-input table-input" value="1" min="0" step="any"></td>
+                        <td class="yield-val">0.00%</td>
+                        <td class="weight-val">0.00%</td>
+                        <td><strong>1.00%</strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -360,10 +369,10 @@
         portfolioChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['BRK.B', 'QQQ', 'VIG'],
+                labels: ['BRK.B', 'QQQ', 'VIG', 'CASH'],
                 datasets: [{
-                    data: [0, 0, 0],
-                    backgroundColor: ['#ef4444', '#3b82f6', '#facc15'], 
+                    data: [0, 0, 0, 0],
+                    backgroundColor: ['#ef4444', '#3b82f6', '#facc15', '#10b981'], 
                     borderWidth: 1
                 }]
             },
