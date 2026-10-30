@@ -312,11 +312,10 @@
                         <td class="weight-val">0.00%</td>
                         <td><strong>33.00%</strong></td>
                     </tr>
-                    <tr class="asset-row" data-symbol="CASH" data-target="1.00" data-multiplier="1">
-                        <td><strong>CASH</strong><br><small style="color:var(--text-muted)">Liquidez</small></td>
-                        <td><input type="number" class="qty-input table-input" value="0" min="0" step="any"></td>
-                        <td><input type="number" class="avg-price-input table-input" value="1" min="0" step="any"></td>
-                        <td><input type="number" class="cur-price-input table-input" value="1" min="0" step="any"></td>
+                    <!-- Fila de Liquidez modificada -->
+                    <tr class="asset-row cash-row" data-symbol="CASH" data-target="1.00">
+                        <td><strong>LIquidez</strong></td>
+                        <td colspan="3"><input type="number" class="cash-input table-input" value="0" min="0" step="any" placeholder="Monto Total"></td>
                         <td class="yield-val">0.00%</td>
                         <td class="weight-val">0.00%</td>
                         <td><strong>1.00%</strong></td>
@@ -351,8 +350,8 @@
 
 <script>
     let portfolioChart = null;
-    const STORAGE_KEY = 'portafolioSaaS_v14';
-    const MODIFIED_KEY = 'last_modified_v14';
+    const STORAGE_KEY = 'portafolioSaaS_v15';
+    const MODIFIED_KEY = 'last_modified_v15';
 
     const formatNumber = (value) => {
         return new Intl.NumberFormat('es-AR', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
@@ -369,7 +368,7 @@
         portfolioChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['BRK.B', 'QQQ', 'VIG', 'CASH'],
+                labels: ['BRK.B', 'QQQ', 'VIG', 'Liquidez'],
                 datasets: [{
                     data: [0, 0, 0, 0],
                     backgroundColor: ['#ef4444', '#3b82f6', '#facc15', '#10b981'], 
@@ -406,11 +405,19 @@
     const saveToLocalStorage = () => {
         const data = [];
         document.querySelectorAll('.asset-row').forEach(row => {
-            data.push({
-                qty: row.querySelector('.qty-input').value,
-                avgPrice: row.querySelector('.avg-price-input').value,
-                curPrice: row.querySelector('.cur-price-input').value
-            });
+            if (row.classList.contains('cash-row')) {
+                data.push({
+                    isCash: true,
+                    amount: row.querySelector('.cash-input').value
+                });
+            } else {
+                data.push({
+                    isCash: false,
+                    qty: row.querySelector('.qty-input').value,
+                    avgPrice: row.querySelector('.avg-price-input').value,
+                    curPrice: row.querySelector('.cur-price-input').value
+                });
+            }
         });
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         localStorage.setItem(MODIFIED_KEY, updateLastModifiedText());
@@ -420,10 +427,15 @@
         const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
         if (savedData && savedData.length > 0) {
             document.querySelectorAll('.asset-row').forEach((row, index) => {
-                if (savedData[index] && (savedData[index].qty || savedData[index].avgPrice)) {
-                    row.querySelector('.qty-input').value = savedData[index].qty || '';
-                    row.querySelector('.avg-price-input').value = savedData[index].avgPrice || '';
-                    row.querySelector('.cur-price-input').value = savedData[index].curPrice || '';
+                const item = savedData[index];
+                if (item) {
+                    if (row.classList.contains('cash-row')) {
+                        if (item.amount !== undefined) row.querySelector('.cash-input').value = item.amount || '';
+                    } else {
+                        if (item.qty !== undefined) row.querySelector('.qty-input').value = item.qty || '';
+                        if (item.avgPrice !== undefined) row.querySelector('.avg-price-input').value = item.avgPrice || '';
+                        if (item.curPrice !== undefined) row.querySelector('.cur-price-input').value = item.curPrice || '';
+                    }
                 }
             });
         }
@@ -441,25 +453,43 @@
         let chartData = [];
         let chartTargets = [];
 
+        // Primera pasada para calcular totales del portafolio
         rows.forEach(row => {
-            const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
-            const avgPrice = parseFloat(row.querySelector('.avg-price-input').value) || 0;
-            const curPrice = parseFloat(row.querySelector('.cur-price-input').value) || 0;
-            const multiplier = parseFloat(row.getAttribute('data-multiplier')) || 1;
+            if (row.classList.contains('cash-row')) {
+                const amount = parseFloat(row.querySelector('.cash-input').value) || 0;
+                totalInvestedPortfolio += amount;
+                totalCurrentPortfolio += amount;
+            } else {
+                const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
+                const avgPrice = parseFloat(row.querySelector('.avg-price-input').value) || 0;
+                const curPrice = parseFloat(row.querySelector('.cur-price-input').value) || 0;
+                const multiplier = parseFloat(row.getAttribute('data-multiplier')) || 1;
 
-            totalInvestedPortfolio += (qty * avgPrice * multiplier);
-            totalCurrentPortfolio += (qty * curPrice * multiplier);
+                totalInvestedPortfolio += (qty * avgPrice * multiplier);
+                totalCurrentPortfolio += (qty * curPrice * multiplier);
+            }
         });
 
+        // Segunda pasada para calcular rendimientos y pesos individuales
         rows.forEach((row, index) => {
-            const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
-            const avgPrice = parseFloat(row.querySelector('.avg-price-input').value) || 0;
-            const curPrice = parseFloat(row.querySelector('.cur-price-input').value) || 0;
-            const targetWeight = parseFloat(row.getAttribute('data-target')) || 0;
-            const multiplier = parseFloat(row.getAttribute('data-multiplier')) || 1;
+            let invested = 0;
+            let current = 0;
 
-            const invested = qty * avgPrice * multiplier;
-            const current = qty * curPrice * multiplier;
+            if (row.classList.contains('cash-row')) {
+                const amount = parseFloat(row.querySelector('.cash-input').value) || 0;
+                invested = amount;
+                current = amount;
+            } else {
+                const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
+                const avgPrice = parseFloat(row.querySelector('.avg-price-input').value) || 0;
+                const curPrice = parseFloat(row.querySelector('.cur-price-input').value) || 0;
+                const multiplier = parseFloat(row.getAttribute('data-multiplier')) || 1;
+
+                invested = qty * avgPrice * multiplier;
+                current = qty * curPrice * multiplier;
+            }
+
+            const targetWeight = parseFloat(row.getAttribute('data-target')) || 0;
             
             let yieldPerc = 0;
             if (invested > 0) yieldPerc = ((current - invested) / invested) * 100;
